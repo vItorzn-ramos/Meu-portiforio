@@ -1,65 +1,26 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #0f172a; /* azul escuro */
-}
 
-/* Cabeçalho */
-header {
-    background: #020617;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
 
-/* Container */
-.container {
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
-}
+menuToggle.addEventListener("click", () => {
+    const menuAberto = navLinks.classList.toggle("active");
 
-/* Caixas */
-.section {
-    background: #1e293b; /* azul mais claro */
-    color: #e2e8f0;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-    transition: 0.3s;
-}
+    menuToggle.setAttribute("aria-expanded", menuAberto);
+    menuToggle.setAttribute(
+        "aria-label",
+        menuAberto ? "Fechar menu" : "Abrir menu"
+    );
 
-.section:hover {
-    transform: translateY(-5px);
-}
+    menuToggle.textContent = menuAberto ? "✕" : "☰";
+});
 
-/* Títulos */
-.section h2 {
-    border-bottom: 1px solid #334155;
-    padding-bottom: 5px;
-}
+document.querySelectorAll("#nav-links a").forEach((link) => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menu");
+        menuToggle.textContent = "☰";
+    });
+});
 
-/* Foto */
-img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    display: block;
-    margin: auto;
-    border: 3px solid #38bdf8;
-}
-
-/* Experiência */
-.job {
-    background: #334155;
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-
-/* Lista */
-ul {
-    padding-left: 20px;
-}
+document.getElementById("year").textContent = new Date().getFullYear();
